@@ -1,23 +1,15 @@
 import Route from 'ember-route-template';
-import type { TOC } from '@ember/component/template-only';
-import { pageTitle } from 'ember-page-title';
 import Component from '@glimmer/component';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-expect-error
 import { localCopy } from 'tracked-toolbox';
 import { on } from '@ember/modifier';
 import { fn } from '@ember/helper';
 import { tracked } from '@glimmer/tracking';
 import { TrackedArray } from 'tracked-built-ins';
 
-const Labelled = <template>
-  <fieldset><legend>{{@name}}</legend>
-    {{yield}}
-  </fieldset>
-</template> satisfies TOC<{ Args: { name: string }; Blocks: { default: [] } }>;
+import { Labelled } from './components/labelled';
 
-class Item extends Component<{ value: number; onChange: (n: number) => void }> {
-  @localCopy('args.value') declare value: number;
+class Item extends Component {
+  @localCopy('args.value') value;
   increment = () => this.value++;
 
   @tracked enableAutosave = false;
@@ -48,8 +40,8 @@ class Item extends Component<{ value: number; onChange: (n: number) => void }> {
   </template>
 }
 
-class Inner extends Component<{ collection: number[] }> {
-  @localCopy('args.collection') declare collection: number[];
+class Inner extends Component {
+  @localCopy('args.collection') collection;
 
   addItem = () => this.collection.push(this.collection.length + 1);
   replace = () => (this.collection = new TrackedArray([1, 2, 3]));
@@ -58,7 +50,7 @@ class Inner extends Component<{ collection: number[] }> {
     return JSON.stringify({ collection: this.collection }, null, 2);
   }
 
-  handleChange = (index: number, nextValue: number) => {
+  handleChange = (index, nextValue) => {
     this.collection[index] = nextValue;
   };
 
@@ -91,7 +83,7 @@ class Demo extends Component {
     );
   }
 
-  handleChange = (index: number, nextValue: number) => {
+  handleChange = (index, nextValue) => {
     this.collection[index] = nextValue;
   };
 
@@ -113,10 +105,4 @@ class Demo extends Component {
   </template>
 }
 
-export default Route(
-  <template>
-    {{pageTitle "Autotracked Destruction (bad)"}}
-
-    <Demo />
-  </template>
-);
+export default Route(Demo);

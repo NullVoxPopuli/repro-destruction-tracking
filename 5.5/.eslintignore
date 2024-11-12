@@ -1,8 +1,13 @@
-# unconventional files
+# unconventional js
 /blueprints/*/files/
 
 # compiled output
 /dist/
 
-# addons
+# misc
+/coverage/
+!.*
+.*/
+
+# ember-try
 /.node_modules.ember-try/
