@@ -59,7 +59,6 @@
     "ember-cli": "~5.12.0",
     "ember-cli-babel": "^8.2.0",
     "ember-cli-htmlbars": "^6.3.0",
-    "ember-data": "~5.3.8",
     "ember-load-initializers": "^3.0.1",
     "ember-modifier": "^4.2.0",
     "ember-page-title": "^8.2.3",
@@ -103,5 +102,8 @@
   "exports": {
     "./tests/*": "./tests/*",
     "./*": "./app/*"
+  },
+  "dependencies": {
+    "tracked-toolbox": "^2.0.0"
   }
 }
